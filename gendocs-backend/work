@@ -1,0 +1,22 @@
+
+                                   
+  Command "queue" is not defined.  
+                                   
+  Did you mean one of these?       
+      queue:batches-table          
+      queue:clear                  
+      queue:failed                 
+      queue:failed-table           
+      queue:flush                  
+      queue:forget                 
+      queue:listen                 
+      queue:monitor                
+      queue:prune-batches          
+      queue:prune-failed           
+      queue:restart                
+      queue:retry                  
+      queue:retry-batch            
+      queue:table                  
+      queue:work                   
+                                   
+
