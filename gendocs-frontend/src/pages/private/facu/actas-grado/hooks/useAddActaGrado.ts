@@ -87,11 +87,14 @@ const validationSchema = yup.object().shape({
     .string()
     .nullable()
     .test("invalid-link", VM.fechaSusReq, testFechaSustentacion),
+  
+
   aula: yup
     .number()
     .nullable()
     .test("invalid-aula", VM.fechaSusReq, testFechaSustentacion),
-  duracion: yup.number().required(VM.required).min(1, VM.invalidOption),
+  
+    duracion: yup.number().required(VM.required).min(1, VM.invalidOption),
   tema: yup.string(),
 });
 

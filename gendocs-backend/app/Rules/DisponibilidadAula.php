@@ -19,8 +19,9 @@ class DisponibilidadAula implements Rule
     {
     }
 
-    public static function onCreate($fecha_presentacion, $duracion)
+    public static function onCreate($fecha_presentacion, $duracion=2)
     {
+        //dd($fecha_presentacion);
         $instance = new self();
         $instance->fill([
             "fecha_presentacion" => $fecha_presentacion,

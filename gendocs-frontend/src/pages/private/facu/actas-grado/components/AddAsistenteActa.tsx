@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import { DatePicker } from "@mui/x-date-pickers";
+import { DatePicker , DateTimePicker} from "@mui/x-date-pickers";
 import ConfirmationDialog from "components/ConfirmationDialog";
 import ErrorSummary from "components/ErrorSummary";
 import Select from "components/Select";
@@ -85,6 +85,9 @@ const AddAsistenteActa: React.FunctionComponent<AddAsistenteActaProps> = ({
   onCancel: closeModal,
   miembro,
 }) => {
+  useEffect(()=>{
+    console.log(actaGrado);
+  },[])
   const client = useQueryClient();
   const [acDocente, setACDocente] = useState<IDocente | null>(
     miembro?.docente || null
@@ -104,14 +107,14 @@ const AddAsistenteActa: React.FunctionComponent<AddAsistenteActaProps> = ({
       ? await updateMiembroActaGrado(miembro.id, {
           ...form,
           fecha_asignacion: form.fecha_asignacion
-            ? format(form.fecha_asignacion, "yyyy-MM-dd")
-            : "",
+           // ? format(form.fecha_asignacion, "yyyy-MM-dd")
+           // : "",
         })
       : await saveMiembroActaGrado({
           ...form,
           fecha_asignacion: form.fecha_asignacion
-            ? format(form.fecha_asignacion, "yyyy-MM-dd")
-            : "",
+            //? format(form.fecha_asignacion, "yyyy-MM-dd")
+            //: "",
         });
 
     if (
@@ -282,8 +285,7 @@ const AddAsistenteActa: React.FunctionComponent<AddAsistenteActaProps> = ({
           </Grid>
 
           <Grid item xs={12}>
-            <DatePicker
-              views={CONSTANTS.DATEPICKER}
+            <DateTimePicker
               disabled={submitting}
               label="Fecha asignación"
               value={formik.values.fecha_asignacion}

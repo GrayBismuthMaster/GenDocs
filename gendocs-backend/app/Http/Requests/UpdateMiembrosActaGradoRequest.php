@@ -5,6 +5,8 @@ namespace App\Http\Requests;
 use App\Constants\TipoAsistenteActaGrado;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Rules\DisponibilidadAula;
+use Carbon\Carbon;
 
 class UpdateMiembrosActaGradoRequest extends FormRequest
 {
@@ -34,7 +36,15 @@ class UpdateMiembrosActaGradoRequest extends FormRequest
                 TipoAsistenteActaGrado::PRESIDENTE,
             ]), "sometimes"],
             "informacion_adicional" => ["string", "sometimes", "nullable"],
-            "fecha_asignacion" => ["date", "sometimes", "nullable"],
+            "fecha_asignacion" => ["date", "sometimes", "nullable"],         
+            //DisponibilidadAula::onCreate($this->fecha_asignacion),
+       
         ];
+    }
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            "fecha_asignacion" => $this->fecha_asignacion ? Carbon::parse($this->fecha_presentacion)->setSecond(0)->setMilli(0) : null,
+        ]);
     }
 }

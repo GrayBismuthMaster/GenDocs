@@ -298,6 +298,7 @@ const ActasGrado: React.FunctionComponent = () => {
             disabled={!p.row.estadoTemp}
             // color="primary"
             LinkComponent={Link}
+            
             to={p.row.id + ""}
             icon={
               <Tooltip title="Editar" arrow>
@@ -306,6 +307,8 @@ const ActasGrado: React.FunctionComponent = () => {
             }
             label="Editar"
           />,
+
+          //Pass by parameter ID ACTA
           <GridActionsCellItem
             key={p.id}
             disabled={!p.row.estadoTemp}
