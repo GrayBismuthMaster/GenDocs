@@ -124,7 +124,8 @@ const AddActaGrado: React.FunctionComponent = () => {
 
   useEffect(() => {
     formik.setFieldValue("estado_acta", -1);
-
+    let dateNow = new Date();
+    formik.setFieldValue("fecha_presentacion",dateNow)
     const tipoActaSeleccionada = tipoActasGrado.find(
       (i) => i.codigo == formik.values.tipo_acta
     );
@@ -549,11 +550,13 @@ const AddActaGrado: React.FunctionComponent = () => {
           <Grid item xs={12}>
             <DateTimePicker
               label="Fecha sustentación/incorporación"
-              disabled={submitting || !estudianteSeleccionado}
+              //disabled={submitting || !estudianteSeleccionado}
+              disabled
               value={formik.values.fecha_presentacion}
               onChange={(date) =>
                 formik.setFieldValue("fecha_presentacion", date)
               }
+
               renderInput={(props) => (
                 <TextField
                   {...props}

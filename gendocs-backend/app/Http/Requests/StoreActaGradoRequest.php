@@ -35,7 +35,7 @@ class StoreActaGradoRequest extends FormRequest
             "tipo_acta" => ["required", "exists:\App\Models\TipoActaGrado,codigo"],
             "solicitar_especie" => ["required", "boolean"],
             "envio_financiero_especie" => ["required", "boolean"],
-            "duracion" => ["required", "integer", "min:1"],
+            "duracion" => ["nullable", "integer", "min:1"],
             "modalidad_acta_grado" => ["required", "exists:\App\Models\ModalidadActaGrado,codigo"],
             //
             "estado_acta" => ["sometimes", "nullable", "exists:\App\Models\EstadoActa,id"],
@@ -51,7 +51,7 @@ class StoreActaGradoRequest extends FormRequest
                 "bail",
                 "exists:\App\Models\Aula,id",
                 new ModalidadActa($this->modalidad_acta_grado, ModalidadesActaGrado::PRE),
-                DisponibilidadAula::onCreate($this->fecha_presentacion, $this->duracion),
+                //DisponibilidadAula::onCreate($this->fecha_presentacion, $this->duracion),
             ],
             "link" => [
                 "bail",
@@ -59,7 +59,7 @@ class StoreActaGradoRequest extends FormRequest
                 "nullable",
                 "url",
                 new ModalidadActa($this->modalidad_acta_grado, ModalidadesActaGrado::ONL),
-                DisponibilidadLink::onCreate($this->fecha_presentacion, $this->duracion),
+                //DisponibilidadLink::onCreate($this->fecha_presentacion, $this->duracion),
             ],
         ];
     }
@@ -75,7 +75,7 @@ class StoreActaGradoRequest extends FormRequest
             "estado_acta" => $this->estado_acta ? $this->estado_acta : null,
             "horas_practicas" => isset($this->horas_practicas) ? (int)$this->horas_practicas : null,
             "numero_aux" => isset($this->numero_aux) ? (int)$this->numero_aux : null,
-            "duracion" => isset($this->duracion) ? (int)$this->duracion : null,
+            "duracion" => isset($this->duracion) ? (int)$this->duracion : 0,
             "creditos_aprobados" => isset($this->creditos_aprobados) ? (int)$this->creditos_aprobados : null,
             "aula" => $this->aula ? $this->aula : null,
             "link" => $this->link ? $this->link : null,

@@ -92,7 +92,7 @@ class ActaGradoController extends Controller
                 "created_user_id" => Auth::id(),
                 //
                 "horas_practicas" => $validated["horas_practicas"],
-                "fecha_presentacion" => $validated["fecha_presentacion"],
+                //"fecha_presentacion" => $validated["fecha_presentacion"],
                 "link" => $validated["link"],
                 "aula_id" => $validated["aula"],
                 "tema" => $validated["tema"],
