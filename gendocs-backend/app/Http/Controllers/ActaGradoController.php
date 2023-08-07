@@ -278,8 +278,7 @@ class ActaGradoController extends Controller
             ->orderBy("numero")
             // ->dd()
         ;
-
-
+        
         return response()->json([
             "data" => $query->get(),
         ]);

@@ -225,6 +225,9 @@ return [
                     UniqueConstraintNames::ACTA_GRADO_ACTA_GRADO_ID_DOCENTE_ID => "No se puede ingresar el mismo docente",
                 ]
             ]
-        ]
+        ],
+        'fecha_presentacion' => [
+            'unique_carrera' => 'The fecha presentacion is not unique within the same carrera.',
+        ],
     ],
 ];

@@ -6,6 +6,7 @@ use App\Constants\ModalidadesActaGrado;
 use App\Rules\DisponibilidadAula;
 use App\Rules\DisponibilidadLink;
 use App\Rules\ModalidadActa;
+use App\Rules\UniqueFechaPresentacion;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,7 +27,12 @@ class UpdateActaGradoRequest extends FormRequest
             "creditos_aprobados" => ["required", "integer", "min:1"],
             "horas_practicas" => ["present", "integer"],
             "numero_aux" => ["present", "integer"],
-            "fecha_presentacion" => ["sometimes", "nullable", "date"],
+            "fecha_presentacion" => [
+                "sometimes",
+                "nullable",
+                "date",
+                new UniqueFechaPresentacion($this->id, $this->duracion, $this->fecha_presentacion),
+            ],
             "solicitar_especie" => ["required", "boolean"],
             "envio_financiero_especie" => ["required", "boolean"],
             "tema" => ["sometimes", "nullable", "string"],
