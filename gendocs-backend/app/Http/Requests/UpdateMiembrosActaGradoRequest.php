@@ -8,6 +8,8 @@ use Illuminate\Validation\Rule;
 use App\Rules\DisponibilidadAula;
 use Carbon\Carbon;
 
+use App\Rules\DisponibilidadDocente;
+
 class UpdateMiembrosActaGradoRequest extends FormRequest
 {
     /**
@@ -36,8 +38,10 @@ class UpdateMiembrosActaGradoRequest extends FormRequest
                 TipoAsistenteActaGrado::PRESIDENTE,
             ]), "sometimes"],
             "informacion_adicional" => ["string", "sometimes", "nullable"],
-            "fecha_asignacion" => ["date", "sometimes", "nullable"],         
-            //DisponibilidadAula::onCreate($this->fecha_asignacion),
+            "fecha_asignacion" => ["date", "sometimes", "nullable"],        
+            "actaGrado" => ["required", "exists:\App\Models\ActaGrado,id"],
+            DisponibilidadAula::onCreate($this->fecha_asignacion),
+            new DisponibilidadDocente($this->actaGrado)
        
         ];
     }

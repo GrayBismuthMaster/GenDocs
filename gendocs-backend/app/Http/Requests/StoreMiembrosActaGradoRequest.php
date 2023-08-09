@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Constants\TipoAsistenteActaGrado;
 use App\Rules\DisponibilidadDocente;
+use App\Rules\MaximumRolesRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -27,10 +28,18 @@ class StoreMiembrosActaGradoRequest extends FormRequest
     public function rules()
     {
         return [
-            // "docente" => ["required", "exists:\App\Models\Docente,id", new DisponibilidadDocente($this->actaGrado)],
-            "docente" => ["required", "exists:\App\Models\Docente,id"],
+            "docente" => ["required", "exists:\App\Models\Docente,id", new DisponibilidadDocente($this->actaGrado)],
+            //"docente" => ["required", "exists:\App\Models\Docente,id"],
             "actaGrado" => ["required", "exists:\App\Models\ActaGrado,id"],
-            "tipo" => ["required", Rule::in([TipoAsistenteActaGrado::TUTOR, TipoAsistenteActaGrado::M_PRINCIPAL, TipoAsistenteActaGrado::M_SUPLENTE, TipoAsistenteActaGrado::PRESIDENTE])],
+            "tipo" => ["required",
+                Rule::in([TipoAsistenteActaGrado::TUTOR, TipoAsistenteActaGrado::M_PRINCIPAL, TipoAsistenteActaGrado::M_SUPLENTE, TipoAsistenteActaGrado::PRESIDENTE]),
+                new MaximumRolesRule($this->actaGrado, [
+                    TipoAsistenteActaGrado::M_PRINCIPAL => 2,
+                    TipoAsistenteActaGrado::M_SUPLENTE => 2,
+                    TipoAsistenteActaGrado::TUTOR => 1,
+                    TipoAsistenteActaGrado::PRESIDENTE => 1,
+                ]),
+            ],
             "informacion_adicional" => ["nullable", "string"],
             "fecha_asignacion" => ["nullable", "date"],
         ];

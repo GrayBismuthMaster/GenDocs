@@ -20,24 +20,21 @@ class UniqueFechaPresentacion implements Rule
 
     public function passes($attribute, $value)
     {
+        //GETTING FECHA_PRESENTACION, ADDING DURATION VALUE
         $startDateTime = Carbon::createFromFormat('Y-m-d H:i:s', $value);
-        $endDateTime = $startDateTime->copy()->addMinutes($this->duracion);
-
-        $startDateTimeFormatted = $startDateTime->format('Y-m-d H:i:s');
-        $endDateTimeFormatted = $endDateTime->format('Y-m-d H:i:s');
-        
-        
-      
-            $query = ActaGrado::where('id', '<>',$this->actaGradoId)
-            ->where(function ($query) use ($startDateTimeFormatted, $endDateTimeFormatted) {
-                $query->where('fecha_presentacion', '>=', $startDateTimeFormatted)
-                    ->where('fecha_presentacion', '<', $endDateTimeFormatted);
+          $startDateTimeFormatted = $startDateTime->format('Y-m-d H:i:s');
+       
+          $query = ActaGrado::where('id', '<>', 168)
+            ->where(function ($query) use ($startDateTimeFormatted) {
+                $query->whereRaw("'$startDateTimeFormatted' BETWEEN fecha_presentacion AND DATE_ADD(fecha_presentacion, INTERVAL duracion MINUTE)");
             });
+        
+        $result = $query->get();
 
         $overlappingRecords = $query->get();
         
-        dd($startDateTimeFormatted, $endDateTimeFormatted, $overlappingRecords, $this->actaGradoId);
-
+        //dd($startDateTimeFormatted,  $overlappingRecords, $this->actaGradoId);
+            return !$query->exists();
     }
 
     public function message()

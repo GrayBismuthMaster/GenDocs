@@ -105,7 +105,6 @@ class MiembrosActaGradoController extends Controller
         if ($wasDeleted) {
             return response()->noContent(Response::HTTP_OK);
         }
-
         return response()->noContent(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }
