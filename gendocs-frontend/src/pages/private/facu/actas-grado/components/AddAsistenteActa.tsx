@@ -86,7 +86,6 @@ const AddAsistenteActa: React.FunctionComponent<AddAsistenteActaProps> = ({
   miembro,
 }) => {
   useEffect(()=>{
-    console.log(actaGrado);
   },[])
   const client = useQueryClient();
   const [acDocente, setACDocente] = useState<IDocente | null>(

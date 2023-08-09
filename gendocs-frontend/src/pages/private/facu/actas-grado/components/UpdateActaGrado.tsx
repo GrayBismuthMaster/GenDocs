@@ -271,7 +271,7 @@ const UpdateActaGradoBase = ({
             <TextField
               fullWidth
               required
-              disabled={submitting}
+              //disabled={submitting}
               disabled={true}
               label="Cantón de residencia"
               margin="normal"
